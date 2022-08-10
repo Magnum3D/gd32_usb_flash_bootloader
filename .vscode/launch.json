@@ -1,0 +1,38 @@
+{
+    // Используйте IntelliSense, чтобы узнать о возможных атрибутах.
+    // Наведите указатель мыши, чтобы просмотреть описания существующих атрибутов.
+    // Для получения дополнительной информации посетите: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "request": "launch",
+            "name": "JLink Debug",
+            "type": "cortex-debug",
+            "cwd": "${workspaceRoot}",
+            "executable": "${workspaceRoot}/build/${workspaceFolderBasename}.elf",
+            "servertype": "jlink",
+            "device": "GD32F205VG",
+            "interface": "swd",
+            //"runToMain": true,
+            "preLaunchTask": "Build",
+            "svdFile": "GD32F205VG.svd",
+            "swoConfig":
+            {
+                "enabled": true,
+                "cpuFrequency": 120000000,
+                "swoFrequency": 4000000,
+                "source": "probe",
+                "decoders":
+                [
+                    {
+                        "label": "ITM port 0 output",
+                        "type": "console",
+                        "port": 0,
+                        "showOnStartup": true,
+                        "encoding": "ascii"
+                    }
+                ]
+            }
+        }
+    ]
+}
