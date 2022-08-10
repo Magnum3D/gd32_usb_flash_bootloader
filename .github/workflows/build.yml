@@ -9,8 +9,6 @@ jobs:
     runs-on: ubuntu-latest
     name: "Deploying app..."
     steps:
-    - name: Test Echo
-      run: echo ${GITHUB_REPOSITORY#*/}
     - name: Checkout source code
       uses: actions/checkout@v3
     - name: Install Arm GNU Toolchain (arm-none-eabi-gcc)
@@ -19,8 +17,8 @@ jobs:
       run: make
     - uses: actions/upload-artifact@v2
       with:
-        name: gd32_usb_flash_bootloader.bin
-        path: ./build/gd32_usb_flash_bootloader.bin
+        name: ${GITHUB_REPOSITORY#*/}.bin
+        path: ./build/${GITHUB_REPOSITORY#*/}.bin
     - name: Get current date
       id: date
       run: |
@@ -36,7 +34,7 @@ jobs:
       env:
         TZ: Europe/Moscow
     - name: release
-      uses: ncipollo/release-action@v1.8.10
+      uses: ncipollo/release-action@v1
       id: create_release
       with:
         draft: false
@@ -55,8 +53,7 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./build/gd32_usb_flash_bootloader.bin
-        asset_name: MagnumDF-${{ steps.date.outputs.date }}.bin
+        asset_path: ./build/${GITHUB_REPOSITORY#*/}.bin
+        asset_name: BootLoader-GD32-${{ steps.date.outputs.date }}.bin
         asset_content_type: application/octet-stream
