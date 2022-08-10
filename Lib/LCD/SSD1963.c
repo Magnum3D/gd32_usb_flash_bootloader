@@ -1,6 +1,7 @@
 // #include "includes.h"
 #include "SSD1963.h"
 #include "lcd.h"
+#include "LCD_Init.h"
 #include "systick.h"
 // #include "trans_cpu.h"
 

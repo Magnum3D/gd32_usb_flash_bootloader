@@ -1,3 +1,4 @@
+#include <string.h>
 #include "LCD_Init.h"
 #include "lcd.h"
 //#include "GPIO_Init.h"
@@ -612,22 +613,22 @@ LCDUI_FONT_TYPE		LCDUI_GetCurrentFont()
 	return lcdui_current_font_type;
 }
 //==================================
-uint32_t	LCDUI_GetTextWidth(char *str)
-{
-	uint32_t i = 0, res = 0;
-	char c;
-	while(str[i])
-	{
-		c =  UTF8toANSI(str+i);
-		if (c > 31)
-			res += _lcdui_GetCharWidth(c);
-		if (str[i] < 0x80)
-			i++;
-		else
-			i += 2;
-	}
-	return res;
-}
+// uint32_t	LCDUI_GetTextWidth(char *str)
+// {
+// 	uint32_t i = 0, res = 0;
+// 	char c;
+// 	while(str[i])
+// 	{
+// 		c =  UTF8toANSI(str+i);
+// 		if (c > 31)
+// 			res += _lcdui_GetCharWidth(c);
+// 		if (str[i] < 0x80)
+// 			i++;
+// 		else
+// 			i += 2;
+// 	}
+// 	return res;
+// }
 //==============================================================================
 uint32_t	LCDUI_GetCurrentFontHeight()
 {
@@ -825,9 +826,9 @@ void	LCDUI_DrawText(char *str, uint16_t opt, int16_t x1, int16_t y1, int16_t x2,
 	lcdui_color = oldcolor;
 }
 //==============================================================================
-void	LCDUI_DrawCharUTF(char *c,  uint16_t opt, int16_t x, int16_t y)
-{
-	char cc = UTF8toANSI(c);
-	LCDUI_DrawChar(cc, opt, x, y);
-}
+// void	LCDUI_DrawCharUTF(char *c,  uint16_t opt, int16_t x, int16_t y)
+// {
+// 	char cc = UTF8toANSI(c);
+// 	LCDUI_DrawChar(cc, opt, x, y);
+// }
 //==============================================================================
